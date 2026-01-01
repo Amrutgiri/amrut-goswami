@@ -55,6 +55,7 @@ async function verifyRecaptcha(token) {
 
 exports.sendMessage = async (req, res) => {
     try {
+        console.log("Contact Form Request Body:", req.body); // DEBUG LOG
         const { name, email, subject, message, 'g-recaptcha-response': captchaToken } = req.body;
         const Message = require("../models/Message");
 

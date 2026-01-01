@@ -21,11 +21,7 @@ function initializeDataTable() {
             dataSrc: '',
             error: function (xhr, error, thrown) {
                 console.error('Error loading messages:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to load messages. Please refresh the page.'
-                });
+                // Optional: Swal error here
             }
         },
         columns: [
@@ -55,7 +51,7 @@ function initializeDataTable() {
                 data: 'createdAt',
                 render: function (data) {
                     return new Date(data).toLocaleDateString('en-US', {
-                        month: 'short', day: 'numeric', year: 'numeric'
+                        month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'
                     });
                 },
                 width: '15%'
@@ -128,19 +124,19 @@ function initializeDataTable() {
 function initializeEventHandlers() {
     // Reset modal on close
     $('#viewMessageModal').on('hidden.bs.modal', function () {
-        // Clear fields if needed, but we overwrite them on open
+        // Clear fields if needed
     });
 }
 
 function attachRowEventHandlers() {
     // View button click
-    $('.btn-view').off('click').on('click', function () {
+    $(document).on('click', '.btn-view', function () {
         const id = $(this).data('id');
         loadMessageDetails(id);
     });
 
     // Delete button click
-    $('.btn-delete').off('click').on('click', function () {
+    $(document).on('click', '.btn-delete', function () {
         const id = $(this).data('id');
         handleDeleteMessage(id);
     });
@@ -172,7 +168,7 @@ function loadMessageDetails(id) {
 
             modal.modal('show');
 
-            // Reload table to update status visually (since backend marked it as read)
+            // Reload table
             messagesTable.ajax.reload(null, false);
         },
         error: function (xhr) {

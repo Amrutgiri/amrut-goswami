@@ -1,0 +1,272 @@
+<!-- ========================================
+     SKILLS MANAGEMENT PAGE - WITH DATATABLES & SWEETALERT2
+     Admin interface for managing portfolio skills
+     Features: CRUD operations via AJAX, DataTables, SweetAlert2
+     ======================================== -->
+
+<!-- Page Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-1">Skills Management</h3>
+        <p class="text-muted mb-0">Manage technical skills displayed on your portfolio</p>
+    </div>
+    <!-- Add Skill Button -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSkillModal">
+        <i class="bi bi-plus-circle me-2"></i>Add Skill
+    </button>
+</div>
+
+<!-- Filter Controls -->
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="categoryFilter" class="form-label fw-semibold">
+                    <i class="bi bi-funnel me-1"></i>Filter by Category
+                </label>
+                <select class="form-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="frontend">Frontend</option>
+                    <option value="backend">Backend</option>
+                    <option value="database">Database</option>
+                    <option value="tools">Tools</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="statusFilter" class="form-label fw-semibold">
+                    <i class="bi bi-funnel me-1"></i>Filter by Status
+                </label>
+                <select class="form-select" id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-outline-secondary w-100" id="resetFilters">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Reset Filters
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Skills Table Card -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="skillsTable" class="table table-hover align-middle mb-0" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Icon</th>
+                        <th>Skill Name</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- DataTables will populate this via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     ADD SKILL MODAL
+     ======================================== -->
+<div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addSkillModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>Add New Skill
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addSkillForm">
+                    <!-- Skill Name -->
+                    <div class="mb-3">
+                        <label for="skillName" class="form-label">
+                            Skill Name <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="skillName" name="name"
+                            placeholder="e.g., React, Python, Docker" required>
+                    </div>
+
+                    <!-- Icon -->
+                    <div class="mb-3">
+                        <label for="skillIcon" class="form-label">Icon Class</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-star" id="addIconPreview"></i></span>
+                            <input type="text" class="form-control IconInput" id="skillIcon" name="icon"
+                                placeholder="bx bxl-react"
+                                oninput="document.getElementById('addIconPreview').className = this.value">
+                        </div>
+                        <div class="form-text">Boxicons ('bx bxl-react'), Bootstrap ('bi bi-code'), or FontAwesome
+                            ('fa-brands fa-react')</div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="skillCategory" class="form-label">
+                            Category <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" id="skillCategory" name="category" required>
+                            <option value="" selected disabled>Select a category</option>
+                            <option value="frontend">Frontend</option>
+                            <option value="backend">Backend</option>
+                            <option value="database">Database</option>
+                            <option value="tools">Tools</option>
+                        </select>
+                    </div>
+
+                    <!-- Skill Level Slider -->
+                    <div class="mb-3">
+                        <label for="skillLevel" class="form-label">
+                            Skill Level: <span class="text-primary fw-bold" id="skillLevelValue">50%</span>
+                        </label>
+                        <input type="range" class="form-range" id="skillLevel" name="level" min="0" max="100" value="50"
+                            oninput="document.getElementById('skillLevelValue').textContent = this.value + '%'">
+                        <div class="d-flex justify-content-between">
+                            <small class="text-muted">Beginner (0%)</small>
+                            <small class="text-muted">Expert (100%)</small>
+                        </div>
+                    </div>
+
+                    <!-- Status Toggle -->
+                    <div class="mb-3">
+                        <label class="form-label d-block">Status</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="skillStatus" name="isActive" checked>
+                            <label class="form-check-label" for="skillStatus">
+                                <span id="statusLabel">Active</span>
+                            </label>
+                        </div>
+                        <small class="text-muted">Only active skills will be displayed on your portfolio</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-1"></i>Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" form="addSkillForm">
+                    <i class="bi bi-check-circle me-1"></i>Save Skill
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     EDIT SKILL MODAL
+     ======================================== -->
+<div class="modal fade" id="editSkillModal" tabindex="-1" aria-labelledby="editSkillModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="editSkillModalLabel">
+                    <i class="bi bi-pencil me-2"></i>Edit Skill
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editSkillForm">
+                    <!-- Hidden Skill ID -->
+                    <input type="hidden" id="editSkillId">
+
+                    <!-- Skill Name -->
+                    <div class="mb-3">
+                        <label for="editSkillName" class="form-label">
+                            Skill Name <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="editSkillName" name="name" required>
+                    </div>
+
+                    <!-- Icon -->
+                    <div class="mb-3">
+                        <label for="editSkillIcon" class="form-label">Icon Class</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-star" id="editIconPreview"></i></span>
+                            <input type="text" class="form-control IconInput" id="editSkillIcon" name="icon"
+                                oninput="document.getElementById('editIconPreview').className = this.value">
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="editSkillCategory" class="form-label">
+                            Category <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" id="editSkillCategory" name="category" required>
+                            <option value="">Select a category</option>
+                            <option value="frontend">Frontend</option>
+                            <option value="backend">Backend</option>
+                            <option value="database">Database</option>
+                            <option value="tools">Tools</option>
+                        </select>
+                    </div>
+
+                    <!-- Skill Level Slider -->
+                    <div class="mb-3">
+                        <label for="editSkillLevel" class="form-label">
+                            Skill Level: <span class="text-primary fw-bold" id="editSkillLevelValue">50%</span>
+                        </label>
+                        <input type="range" class="form-range" id="editSkillLevel" name="level" min="0" max="100"
+                            value="50"
+                            oninput="document.getElementById('editSkillLevelValue').textContent = this.value + '%'">
+                        <div class="d-flex justify-content-between">
+                            <small class="text-muted">Beginner (0%)</small>
+                            <small class="text-muted">Expert (100%)</small>
+                        </div>
+                    </div>
+
+                    <!-- Status Toggle -->
+                    <div class="mb-3">
+                        <label class="form-label d-block">Status</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="editSkillStatus" name="isActive">
+                            <label class="form-check-label" for="editSkillStatus">
+                                <span id="editStatusLabel">Active</span>
+                            </label>
+                        </div>
+                        <small class="text-muted">Only active skills will be displayed on your portfolio</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-1"></i>Cancel
+                </button>
+                <button type="submit" class="btn btn-warning text-dark" form="editSkillForm">
+                    <i class="bi bi-check-circle me-1"></i>Update Skill
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     CDN LIBRARIES
+     ======================================== -->
+
+<!-- jQuery (Required for DataTables) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables CSS & JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- SweetAlert2 CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.all.min.js"></script>
+
+<!-- Skills AJAX CRUD Script -->
+<script src="/js/skills.js"></script>

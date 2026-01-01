@@ -1,0 +1,56 @@
+<div class="page-front">
+    <h1 class="title">Latest Project</h1>
+
+    <div class="portfolio-content-wrapper">
+        <% if (projects && projects.length> 0) { %>
+            <% projects.forEach(project=> { %>
+                <div class="portfolio-box">
+                    <div class="portfolio-detail">
+                        <h4 class="project-title">
+                            <%= project.title %>
+                        </h4>
+                        <div class="tech-stack">
+                            <% project.techStack.forEach(tech=> { %>
+                                <span class="badge">
+                                    <%= tech %>
+                                </span>
+                                <% }); %>
+                        </div>
+                        <p class="description">
+                            <%= project.description.substring(0, 150) %>...
+                        </p>
+
+                        <div class="action-buttons">
+                            <% if (project.githubUrl) { %>
+                                <a href="<%= project.githubUrl %>" target="_blank" class="btn-action">
+                                    <i class='bx bxl-github'></i> Code
+                                </a>
+                                <% } %>
+                                    <% if (project.liveUrl) { %>
+                                        <a href="<%= project.liveUrl %>" target="_blank" class="btn-action">
+                                            <i class='bx bx-link-external'></i> Live
+                                        </a>
+                                        <% } %>
+                        </div>
+                    </div>
+                    <div class="portfolio-img">
+                        <% if (project.image && project.image.url) { %>
+                            <img src="<%= project.image.url %>" alt="<%= project.title %>">
+                            <% } else { %>
+                                <div class="no-image">No Image</div>
+                                <% } %>
+                    </div>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <p>No projects added yet.</p>
+                        <% } %>
+    </div>
+
+
+    <span class="number-page">5</span>
+
+    <span class="nextprev-btn" data-page="turn-3">
+        <i class=' bx bx-chevron-right'></i>
+    </span>
+</div>

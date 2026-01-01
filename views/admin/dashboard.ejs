@@ -1,0 +1,119 @@
+<!-- Statistics Cards -->
+<div class="row stats-row g-4">
+    <!-- Total Projects Card -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card stat-card">
+            <div class="stat-icon purple">
+                <i class="bi bi-folder-fill"></i>
+            </div>
+            <div class="stat-number">
+                <%= counts.projects %>
+            </div>
+            <div class="stat-label">Total Projects</div>
+        </div>
+    </div>
+
+    <!-- Total Skills Card -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card stat-card">
+            <div class="stat-icon blue">
+                <i class="bi bi-code-slash"></i>
+            </div>
+            <div class="stat-number">
+                <%= counts.skills %>
+            </div>
+            <div class="stat-label">Total Skills</div>
+        </div>
+    </div>
+
+    <!-- Messages Card -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card stat-card">
+            <div class="stat-icon green">
+                <i class="bi bi-envelope-fill"></i>
+            </div>
+            <div class="stat-number">
+                <%= counts.messages %>
+            </div>
+            <div class="stat-label">Messages</div>
+        </div>
+    </div>
+
+    <!-- Services Card -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card stat-card">
+            <div class="stat-icon orange">
+                <i class="bi bi-gear-fill"></i>
+            </div>
+            <div class="stat-number">
+                <%= counts.services %>
+            </div>
+            <div class="stat-label">Services</div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity Table -->
+<div class="section-card mt-4">
+    <h3 class="section-header mb-3">
+        <i class="bi bi-activity me-2"></i>Recent Activity
+    </h3>
+
+    <div class="table-responsive">
+        <table class="table activity-table table-hover" id="recentActivityTable">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% recentActivity.forEach(activity=> { %>
+                    <tr>
+                        <td><span class="type-badge <%= activity.badgeClass.toLowerCase() %>">
+                                <%= activity.type %>
+                            </span></td>
+                        <td>
+                            <%= activity.title %>
+                        </td>
+                        <td>
+                            <%= new Date(activity.date).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <% if (activity.status) { %>
+                                <span class="badge bg-success">Active</span>
+                                <% } else { %>
+                                    <span class="badge bg-secondary">Inactive</span>
+                                    <% } %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- CDN Libraries for DataTables -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#recentActivityTable').DataTable({
+            responsive: true,
+            pageLength: 5,
+            order: [[2, 'desc']], // Sort by Date by default
+            lengthChange: false, // Disable record count per page
+            searching: false, //  Disable search for a simple dashboard widget
+            language: {
+                emptyTable: "No recent activity found"
+            }
+        });
+    });
+</script>

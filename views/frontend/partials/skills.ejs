@@ -1,0 +1,39 @@
+<div class="page-back">
+    <h1 class="title">My Skills</h1>
+    <div class="skills-box">
+        <% const groupedSkills={}; if (skills && skills.length> 0) {
+            skills.forEach(skill => {
+            const cat = skill.category || 'Other';
+            if (!groupedSkills[cat]) groupedSkills[cat] = [];
+            groupedSkills[cat].push(skill);
+            });
+            }
+            %>
+
+            <% if (Object.keys(groupedSkills).length> 0) { %>
+                <% Object.keys(groupedSkills).forEach(category=> { %>
+                    <div class="skills-content">
+                        <h3>
+                            <%= (category.charAt(0).toUpperCase() + category.slice(1)).replace(/([A-Z])/g, ' $1'
+                                ).trim() %>
+                        </h3>
+                        <div class="content">
+                            <% groupedSkills[category].forEach(skill=> { %>
+                                <span>
+                                    <i class='<%= skill.icon %>'></i>
+                                    <%= skill.name %>
+                                </span>
+                                <% }); %>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } else { %>
+                            <p>No skills added yet.</p>
+                            <% } %>
+    </div>
+    <span class="number-page">4</span>
+
+    <span class="nextprev-btn back" data-page="turn-2">
+        <i class='bx bx-chevron-left'></i>
+    </span>
+</div>

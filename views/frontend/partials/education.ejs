@@ -1,0 +1,29 @@
+<div class="page-back">
+    <h1 class="title">Education</h1>
+    <div class="workeduc-box">
+        <% if (education && education.length> 0) { %>
+            <% education.forEach(edu=> { %>
+                <div class="workeduc-content">
+                    <span class="year"><i class='bx bx-calendar'></i>
+                        <%= edu.startYear %> - <%= edu.isCurrent ? 'Present' : edu.endYear %>
+                    </span>
+                    <h3>
+                        <%= edu.degree %> - <%= edu.institution %>
+                    </h3>
+                    <p>
+                        <%= edu.description %>
+                    </p>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <div class="workeduc-content">
+                            <p>No education added yet.</p>
+                        </div>
+                        <% } %>
+    </div>
+    <span class="number-page">2</span>
+
+    <span class="nextprev-btn back" data-page="turn-1">
+        <i class='bx bx-chevron-left'></i>
+    </span>
+</div>

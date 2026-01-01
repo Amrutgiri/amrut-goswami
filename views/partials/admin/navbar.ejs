@@ -1,0 +1,37 @@
+<!-- Top Navbar -->
+<nav class="top-navbar">
+    <div class="d-flex align-items-center gap-3">
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </button>
+        <h2 class="page-title">
+            <%= title || 'Dashboard' %>
+        </h2>
+    </div>
+
+    <div class="navbar-actions">
+        <!-- Profile Dropdown -->
+        <div class="dropdown profile-dropdown">
+            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="profile-avatar">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <span class="profile-name">
+                    <%= admin ? admin.email.split('@')[0] : 'Admin' %>
+                </span>
+                <i class="bi bi-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="/admin/profile">
+                        <i class="bi bi-person me-2"></i>Profile
+                    </a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item text-danger" href="/admin/logout">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

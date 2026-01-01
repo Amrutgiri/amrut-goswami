@@ -1,0 +1,30 @@
+<div class="page-front">
+    <h1 class="title">Work Experience</h1>
+    <div class="workeduc-box">
+        <% if (experiences && experiences.length> 0) { %>
+            <% experiences.forEach(exp=> { %>
+                <div class="workeduc-content">
+                    <span class="year"><i class='bx bx-calendar'></i>
+                        <%= new Date(exp.startDate).getFullYear() %> -
+                            <%= exp.isCurrent ? 'Present' : (exp.endDate ? new Date(exp.endDate).getFullYear() : '' ) %>
+                    </span>
+                    <h3>
+                        <%= exp.role %> - <%= exp.companyName %>
+                    </h3>
+                    <div class="description-html">
+                        <%- exp.description %>
+                    </div>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <div class="workeduc-content">
+                            <p>No experience added yet.</p>
+                        </div>
+                        <% } %>
+    </div>
+    <span class="number-page">1</span>
+
+    <span class="nextprev-btn" data-page="turn-1">
+        <i class='bx bx-chevron-right'></i>
+    </span>
+</div>

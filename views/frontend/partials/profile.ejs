@@ -1,0 +1,53 @@
+<!-- profile -->
+<div class="book-page page-left">
+    <div class="profile-page">
+        <% if (about && about.profileImage) { %>
+            <img src="<%= about.profileImage.url %>" alt="<%= about.fullName %>">
+            <% } else { %>
+                <div class="profile-img-placeholder d-inline-block rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 150px; height: 150px; color: white; font-size: 3rem;">
+                    <%= about && about.fullName ? about.fullName.charAt(0) : 'Me' %>
+                </div>
+                <% } %>
+
+                    <h1>
+                        <%= about ? about.fullName : 'Your Name' %>
+                    </h1>
+                    <h3>
+                        <%= about ? about.professionalTitle : 'Professional Title' %>
+                    </h3>
+
+                    <div class="social-media">
+                        <% if (about && about.socialLinks) { %>
+                            <% if (about.socialLinks.facebook) { %>
+                                <a href="<%= about.socialLinks.facebook %>" target="_blank"><i
+                                        class='bx bxl-facebook'></i></a>
+                                <% } %>
+                                    <% if (about.socialLinks.instagram) { %>
+                                        <a href="<%= about.socialLinks.instagram %>" target="_blank"><i
+                                                class='bx bxl-instagram-alt'></i></a>
+                                        <% } %>
+                                            <% if (about.socialLinks.linkedin) { %>
+                                                <a href="<%= about.socialLinks.linkedin %>" target="_blank"><i
+                                                        class='bx bxl-linkedin'></i></a>
+                                                <% } %>
+                                                    <% if (about.socialLinks.youtube) { %>
+                                                        <a href="<%= about.socialLinks.youtube %>" target="_blank"><i
+                                                                class='bx bxl-youtube'></i></a>
+                                                        <% } %>
+                                                            <% } %>
+                    </div>
+
+                    <p>
+                        <%= about ? about.shortBio : 'Welcome to my portfolio.' %>
+                    </p>
+
+                    <div class="btn-box">
+                        <% if (about && about.resume) { %>
+                            <a href="<%= about.resume.url %>" target="_blank" class="btn">Download CV</a>
+                            <% } %>
+                                <a href="#" class="btn contact-me">Contact Me</a>
+                    </div>
+    </div>
+</div>
+<!-- end profile -->

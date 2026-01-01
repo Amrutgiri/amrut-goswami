@@ -1,0 +1,308 @@
+<!-- ========================================
+     EDUCATION MANAGEMENT PAGE
+     Admin interface for managing education details
+     Features: List, Add, Edit, Delete Education Entries
+     ======================================== -->
+
+<!-- Page Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-1">Education Management</h3>
+        <p class="text-muted mb-0">Manage your academic background and certifications</p>
+    </div>
+    <!-- Add Education Button -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEducationModal">
+        <i class="bi bi-plus-circle me-2"></i>Add Education
+    </button>
+</div>
+
+<!-- Education Table Card -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 20%">Degree / Course</th>
+                        <th style="width: 20%">Institution</th>
+                        <th style="width: 20%">Field of Study</th>
+                        <th style="width: 15%">Duration</th>
+                        <th style="width: 10%">Status</th>
+                        <th class="text-center" style="width: 10%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Static Demo Data Row 1 -->
+                    <tr>
+                        <td>1</td>
+                        <td class="fw-semibold">Bachelor of Science</td>
+                        <td>University of Technology</td>
+                        <td>Computer Science</td>
+                        <td>2019 – 2023</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editEducationModal" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteEducationModal" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Static Demo Data Row 2 -->
+                    <tr>
+                        <td>2</td>
+                        <td class="fw-semibold">Full Stack Bootcamp</td>
+                        <td>Code Academy</td>
+                        <td>Web Development</td>
+                        <td>2023 – 2023</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editEducationModal" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteEducationModal" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     ADD EDUCATION MODAL
+     ======================================== -->
+<div class="modal fade" id="addEducationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-plus-circle me-2"></i>Add Education
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addEducationForm">
+                    <div class="row g-3">
+                        <!-- Degree / Course Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Degree / Course Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="degree" placeholder="e.g. Bachelor of Science"
+                                required>
+                        </div>
+
+                        <!-- Institution Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Institution Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="institution"
+                                placeholder="e.g. University of Technology" required>
+                        </div>
+
+                        <!-- Field of Study -->
+                        <div class="col-md-12">
+                            <label class="form-label">Field of Study</label>
+                            <input type="text" class="form-control" name="fieldOfStudy"
+                                placeholder="e.g. Computer Science">
+                        </div>
+
+                        <!-- Start Year -->
+                        <div class="col-md-6">
+                            <label class="form-label">Start Year <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="startYear" placeholder="YYYY" min="1900"
+                                max="2099" required>
+                        </div>
+
+                        <!-- End Year -->
+                        <div class="col-md-6">
+                            <label class="form-label">End Year</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="endYear" id="addEndYear"
+                                    placeholder="YYYY" min="1900" max="2099">
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="addCurrentlyStudying">
+                                <label class="form-check-label" for="addCurrentlyStudying">Currently Studying</label>
+                            </div>
+                        </div>
+
+                        <!-- Grade / CGPA -->
+                        <div class="col-md-12">
+                            <label class="form-label">Grade / Percentage / CGPA</label>
+                            <input type="text" class="form-control" name="grade" placeholder="e.g. 3.8/4.0 or 85%">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-12">
+                            <label class="form-label">Description / Highlights</label>
+                            <textarea class="form-control" name="description" rows="3"
+                                placeholder="• Graduated with Honors&#10;• Major in Software Engineering"></textarea>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label d-block">Status</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="addStatus" name="isActive"
+                                        checked>
+                                    <label class="form-check-label" for="addStatus">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="addEducationForm" class="btn btn-success">Save Education</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     EDIT EDUCATION MODAL
+     ======================================== -->
+<div class="modal fade" id="editEducationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Education
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEducationForm">
+                    <div class="row g-3">
+                        <!-- Degree / Course Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Degree / Course Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="degree" value="Bachelor of Science" required>
+                        </div>
+
+                        <!-- Institution Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Institution Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="institution" value="University of Technology"
+                                required>
+                        </div>
+
+                        <!-- Field of Study -->
+                        <div class="col-md-12">
+                            <label class="form-label">Field of Study</label>
+                            <input type="text" class="form-control" name="fieldOfStudy" value="Computer Science">
+                        </div>
+
+                        <!-- Start Year -->
+                        <div class="col-md-6">
+                            <label class="form-label">Start Year <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="startYear" value="2019" required>
+                        </div>
+
+                        <!-- End Year -->
+                        <div class="col-md-6">
+                            <label class="form-label">End Year</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="endYear" id="editEndYear" value="2023">
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="editCurrentlyStudying">
+                                <label class="form-check-label" for="editCurrentlyStudying">Currently Studying</label>
+                            </div>
+                        </div>
+
+                        <!-- Grade / CGPA -->
+                        <div class="col-md-12">
+                            <label class="form-label">Grade / Percentage / CGPA</label>
+                            <input type="text" class="form-control" name="grade" value="3.9 GPA">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-12">
+                            <label class="form-label">Description / Highlights</label>
+                            <textarea class="form-control" name="description"
+                                rows="3">• Dean's List&#10;• Capstone Project: AI Chatbot</textarea>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label d-block">Status</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="editStatus" name="isActive"
+                                        checked>
+                                    <label class="form-check-label" for="editStatus">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="editEducationForm" class="btn btn-warning text-dark">Update
+                    Education</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     DELETE EDUCATION MODAL
+     ======================================== -->
+<div class="modal fade" id="deleteEducationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-trash me-2"></i>Delete Education
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-exclamation-triangle text-danger display-1 mb-3"></i>
+                <h5>Are you sure?</h5>
+                <p class="text-muted mb-0">Do you really want to delete this education entry? This process cannot be
+                    undone.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger">Yes, Delete It</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     CDN LIBRARIES
+     ======================================== -->
+
+<!-- jQuery (Required for DataTables) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- SweetAlert2 CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.all.min.js"></script>
+
+<!-- DataTables CSS & JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Education Management Script -->
+<script src="/js/education.js"></script>

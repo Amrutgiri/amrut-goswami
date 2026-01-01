@@ -1,0 +1,676 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+:root {
+    --bg-color: #081b29;
+    --main-color: #00abf0;
+    --text-color: #333;
+    --second-text-color: #555;
+    --white-color: #fff;
+    --cover-color: linear-gradient(45deg, #00abf0, #006e9a);
+    --page-color: linear-gradient(90deg, #fff, #ddd);
+    --border: .125rem solid #00abf0;
+    --box-shadow: 0 0 .6rem rgba(0, 0, 0, .2);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+.wrapper {
+    position: relative;
+    width: 66rem;
+    height: 45rem;
+    padding: 2rem;
+    perspective: 250rem;
+    animation: show-animate 2s forwards;
+}
+
+@keyframes show-animate {
+
+    0%,
+    30% {
+        opacity: 0;
+        transform: rotate(-20deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--cover-color);
+    box-shadow: var(--box-shadow);
+    border-top-left-radius: .6rem;
+    border-bottom-left-radius: .6rem;
+    transform-origin: right;
+}
+
+.cover.cover-left {
+    z-index: -1;
+}
+
+.cover.cover-right {
+    z-index: 100;
+    transition: transform 1s cubic-bezier(.645, .045, .355, 1);
+}
+
+.cover.cover-right.turn {
+    transform: rotateY(180deg);
+}
+
+/* book css */
+.book {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    perspective: 250rem;
+}
+
+.book .book-page {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: var(--page-color);
+    box-shadow: 0 0 .6rem rgba(0, 0, 0, .1);
+    display: flex;
+    padding: 2rem;
+}
+
+.book-page.page-left {
+    box-shadow: -.6rem .6rem .6rem rgba(0, 0, 0, .1);
+}
+
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.profile-page img {
+    max-width: 250px;
+    border-radius: 50%;
+    border: .25rem solid var(--main-color);
+    margin-bottom: .8rem;
+}
+
+.profile-page h1 {
+    font-size: 2.7rem;
+    line-height: 1;
+}
+
+.profile-page h3 {
+    font-size: 1.5rem;
+    color: var(--main-color);
+}
+
+.profile-page .social-media {
+    margin: .6rem 0 .8rem;
+}
+
+.profile-page .social-media a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: var(--border);
+    border-radius: 50%;
+    font-size: 1.3rem;
+    color: var(--main-color);
+    margin: 0 .2rem;
+    transition: .5s;
+}
+
+.profile-page .social-media a:hover {
+    background: var(--main-color);
+    color: var(--white-color);
+}
+
+.profile-page p {
+    text-align: justify;
+}
+
+.profile-page .btn-box {
+    margin: 1.2rem;
+}
+
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 9.5rem;
+    height: 3rem;
+    background: var(--main-color);
+    border: var(--border);
+    border-radius: .3rem;
+    font-size: 1rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin: 0 1rem;
+    transition: .5s;
+}
+
+.btn:hover {
+    background: transparent;
+    color: var(--main-color);
+}
+
+.btn-box .btn:nth-child(2) {
+    background: transparent;
+    color: var(--main-color);
+}
+
+.btn-box .btn:nth-child(2):hover {
+    background: var(--main-color);
+    color: var(--white-color);
+}
+
+.book-page.page-right {
+    position: absolute;
+    right: 0;
+    transform-style: preserve-3d;
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(.645, .045, .355, 1);
+}
+
+.book-page.page-right.turn {
+    transform: rotateY(-180deg);
+}
+
+.book-page .page-front,
+.book-page .page-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--page-color);
+    padding: 1.5rem 2rem;
+}
+
+.book-page .page-front {
+    transform: rotateY(0deg) translateZ(1px);
+}
+
+.book-page .page-back {
+    transform: rotateY(180deg) translateZ(1px);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.workeduc-content .year {
+    color: var(--main-color);
+
+}
+
+.workeduc-content .year i {
+    margin-right: .4rem;
+    margin-bottom: .5rem;
+}
+
+.workeduc-content h3 {
+    margin-right: .4rem;
+    margin-bottom: .5rem;
+}
+
+.workeduc-box {
+    border-left: var(--border);
+}
+
+.workeduc-box .workeduc-content {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 1.6rem;
+}
+
+.workeduc-box .workeduc-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -0.65rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: var(--main-color);
+    border-radius: 50%;
+}
+
+.number-page {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nextprev-btn {
+    position: absolute;
+    bottom: .9rem;
+    right: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--second-text-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+
+.nextprev-btn:hover {
+    color: var(--main-color);
+}
+
+.nextprev-btn.back {
+    left: 1.5rem;
+}
+
+.services-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.services-box .services-content {
+    flex: 1 1 10rem;
+    border: var(--border);
+    border-radius: .5rem;
+    padding: .8rem .5rem 1.1rem;
+    text-align: center;
+    transition: .3s ease;
+}
+
+.services-box .services-content {
+    box-shadow: var(--box-shadow);
+}
+
+.services-content i {
+    font-size: 2rem;
+    color: var(--main-color);
+}
+
+.services-content h3 {
+    font-size: 1.1rem;
+}
+
+.services-content p {
+    margin: .2rem 0 .8rem;
+}
+
+.services-content .btn {
+    width: 8rem;
+    height: 2.5rem;
+}
+
+.skills-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-height: 33rem;
+    /* Fit within the 45rem page height */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
+    padding-bottom: 2rem;
+    align-content: flex-start;
+}
+
+/* Removing previous skills-box scrollbar targeting to replace with new block */
+
+.skills-box .skills-content {
+    flex: 1 1 20rem;
+    background: transparent;
+    border-radius: .8rem;
+    padding: 1rem;
+}
+
+.skills-content h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 1rem;
+    color: var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    display: inline-block;
+    padding-bottom: 0.3rem;
+    text-transform: none;
+}
+
+/* Custom Scrollbar Global Mixin or Class if supported, but here applied to specific boxes */
+
+/* Projects Wrapper */
+.portfolio-content-wrapper {
+    max-height: 33rem;
+    /* Same as skills box */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.portfolio-content-wrapper::-webkit-scrollbar {
+    width: .5rem;
+}
+
+.portfolio-content-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    /* Subtle track */
+    border-radius: .5rem;
+}
+
+.portfolio-content-wrapper::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: .1rem solid var(--main-color);
+    border-radius: .5rem;
+}
+
+.portfolio-content-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--main-color);
+}
+
+/* Update Skills Box Scrollbar to match (if desired) or separate */
+/* Let's make skills box match this "proper" design */
+.skills-box::-webkit-scrollbar {
+    width: .5rem;
+}
+
+.skills-box::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+}
+
+.skills-box::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: .1rem solid var(--main-color);
+    border-radius: .5rem;
+}
+
+.skills-box::-webkit-scrollbar-thumb:hover {
+    background: var(--main-color);
+}
+
+.skills-content .content span {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 7rem;
+    height: 6rem;
+    border: var(--border);
+    border-radius: .5rem;
+    font-weight: 600;
+    transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    cursor: default;
+}
+
+.skills-content .content span:hover {
+    box-shadow: var(--box-shadow);
+    transform: translateY(-5px) scale(1.05);
+    background: var(--main-color);
+    color: var(--white-color);
+    border-color: var(--main-color);
+}
+
+.skills-content .content span i {
+    font-size: 2.8rem;
+    color: var(--main-color);
+    margin-bottom: 0.5rem;
+    transition: .4s;
+}
+
+.skills-content .content span:hover i {
+    color: var(--white-color);
+    transform: scale(1.1);
+}
+
+.portfolio-box {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: var(--border);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: transparent;
+    transition: .3s;
+}
+
+.portfolio-box:hover {
+    box-shadow: var(--box-shadow);
+    background: rgba(0, 171, 240, 0.05);
+}
+
+/* Image Section - Left (via row-reverse) */
+/* Actually, let's keep it simple: row-reverse to put image (2nd child) on left */
+.portfolio-box {
+    flex-direction: row-reverse;
+}
+
+.portfolio-img {
+    flex: 1;
+    height: 12rem;
+    border-radius: .8rem;
+    overflow: hidden;
+    /* border: 1px solid var(--main-color); */
+}
+
+.portfolio-img img,
+.portfolio-img .no-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .5s ease;
+}
+
+.portfolio-img:hover img {
+    transform: scale(1.1);
+}
+
+.portfolio-img .no-image {
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+}
+
+/* Info Section - Right */
+.portfolio-detail {
+    flex: 1.2;
+    /* Give slightly more space to text */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.project-title {
+    font-size: 1.4rem;
+    color: var(--main-color);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.tech-stack .badge {
+    background: rgba(0, 171, 240, 0.1);
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.portfolio-detail .description {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 1rem;
+    background: transparent;
+    border: var(--border);
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--main-color);
+    transition: .3s;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.btn-action:hover {
+    background: var(--main-color);
+    color: var(--white-color);
+}
+
+/* Updated Contact Box for better fit */
+.contact-box {
+    text-align: center;
+    max-height: 34rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    /* For scrollbar space */
+}
+
+/* Custom Scrollbar for Contact Box */
+.contact-box::-webkit-scrollbar {
+    width: .5rem;
+}
+
+.contact-box::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: .5rem;
+}
+
+.contact-box::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: .1rem solid var(--main-color);
+    border-radius: .5rem;
+}
+
+.contact-box::-webkit-scrollbar-thumb:hover {
+    background: var(--main-color);
+}
+
+.contact-box .field {
+    width: 100%;
+    background: transparent;
+    border: var(--border);
+    border-radius: .3rem;
+    padding: .8rem;
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.8rem;
+    /* Reduced from 1.5rem */
+}
+
+.contact-box .field::placeholder {
+    color: var(--text-color);
+}
+
+.contact-box textarea {
+    resize: none;
+    height: 8rem;
+    /* Reduced from 15rem */
+}
+
+.contact-box .btn {
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+/* Ensure Recaptcha is centered */
+.g-recaptcha {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+}
+
+.back-profile {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 2rem;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: var(--border);
+    border-radius: .3rem;
+    font-size: 1.1rem;
+    color: var(--main-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+
+.back-profile:hover {
+    background: var(--main-color);
+    color: var(--white-color);
+}
+
+.back-profile p {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(.5);
+    font-size: 1rem;
+    opacity: 0;
+    color: var(--main-color);
+    transition: .5s;
+}
+
+.back-profile:hover p {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    top: -1.8rem;
+}

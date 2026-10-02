@@ -1,89 +1,45 @@
-const pageTurnBtn = document.querySelectorAll('.nextprev-btn');
+document.documentElement.classList.add('js-ready');
 
-pageTurnBtn.forEach((el, index) => {
-    el.onclick = () => {
-        const pageTurnId = el.getAttribute('data-page');
-        const pageTurn = document.getElementById(pageTurnId);
+const menuToggle = document.querySelector('.menu-toggle');
+const siteNav = document.querySelector('.site-nav');
 
-        if (pageTurn.classList.contains('turn')) {
-            pageTurn.classList.remove('turn');
-            setTimeout(() => {
-                pageTurn.style.zIndex = 20 - index;
-            }, 500);
-        } else {
-            pageTurn.classList.add('turn');
-            setTimeout(() => {
-                pageTurn.style.zIndex = 20 + index;
-            }, 500);
-        }
-    }
-})
+if (menuToggle && siteNav) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = siteNav.classList.toggle('is-open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+        menuToggle.innerHTML = `<i class="bx ${isOpen ? 'bx-x' : 'bx-menu'}"></i>`;
+    });
 
-const pages = document.querySelectorAll('.book-page.page-right');
-const contactMeBtn = document.querySelector('.btn.contact-me');
-
-contactMeBtn.onclick = () => {
-    pages.forEach((page, index) => {
-        setTimeout(() => {
-            page.classList.add('turn');
-
-            setTimeout(() => {
-                page.style.zIndex = 20 + index;
-            }, 500);
-
-        }, (index + 1) * 200 + 100)
-    })
+    siteNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            siteNav.classList.remove('is-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation');
+            menuToggle.innerHTML = '<i class="bx bx-menu"></i>';
+        });
+    });
 }
 
-let totalPages = pages.length;
-let pageNumber = 0;
+const revealItems = [...document.querySelectorAll('[data-reveal]')];
 
-function reverseIndex() {
-    pageNumber--;
-    if (pageNumber < 0) {
-        pageNumber = totalPages - 1;
-    }
+revealItems.forEach(item => {
+    const siblings = [...item.parentElement.children].filter(sibling => sibling.hasAttribute('data-reveal'));
+    const siblingIndex = siblings.indexOf(item);
+    item.style.setProperty('--reveal-delay', `${(siblingIndex % 3) * 85}ms`);
+});
+
+if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+} else {
+    revealItems.forEach(item => item.classList.add('is-visible'));
 }
-
-const backProfileBtn = document.querySelector('.back-profile');
-
-backProfileBtn.onclick = () => {
-    pages.forEach((_, index) => {
-        setTimeout(() => {
-            reverseIndex();
-            pages[pageNumber].classList.remove('turn');
-
-            setTimeout(() => {
-                reverseIndex();
-                pages[pageNumber].style.zIndex = 10 + index;
-            }, 500);
-        }, (index + 1) * 200 + 100)
-    })
-}
-
-const coverRight = document.querySelector('.cover.cover-right');
-const pageLeft = document.querySelector('.book-page.page-left');
-
-setTimeout(() => {
-    coverRight.classList.add('turn');
-}, 2100);
-
-setTimeout(() => {
-    coverRight.style.zIndex = -1;
-}, 2800);
-
-setTimeout(() => {
-    pageLeft.style.zIndex = 20;
-}, 3200);
-
-pages.forEach((_, index) => {
-    setTimeout(() => {
-        reverseIndex();
-        pages[pageNumber].classList.remove('turn');
-
-        setTimeout(() => {
-            reverseIndex();
-            pages[pageNumber].style.zIndex = 10 + index;
-        }, 500);
-    }, (index + 1) * 200 + 2100)
-})
